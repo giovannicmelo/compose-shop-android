@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">compose-shop-android</string>
+    <string name="title_activity_login">Login</string>
+    <string name="email_hint">E-mail</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="login">Login</string>
+    <string name="login_social_account">Or login with social account</string>
+</resources>
