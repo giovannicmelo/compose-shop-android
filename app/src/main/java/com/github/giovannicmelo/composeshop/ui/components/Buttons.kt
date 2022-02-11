@@ -26,7 +26,7 @@ fun PrimaryButton(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Primary,
             contentColor = White,
-            disabledBackgroundColor = Primary.copy(alpha = 0.9f),
+            disabledBackgroundColor = Primary.copy(alpha = 0.4f),
             disabledContentColor = White,
         ),
         shape = CircleShape,
@@ -141,7 +141,7 @@ fun ButtonsPreview() {
             PrimaryButton(
                 label = "Primary",
                 matchParent = true,
-                isEnabled = true
+                isEnabled = false
             ) {
 
             }

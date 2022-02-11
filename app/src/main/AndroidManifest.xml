@@ -10,7 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ComposeShop">
         <activity
-            android:name=".ui.screens.LoginActivity"
+            android:name=".ui.screens.forgotpassword.ForgotPasswordActivity"
+            android:exported="false"
+            android:label="@string/title_activity_forgot_password"
+            android:theme="@style/Theme.ComposeShop">
+            <intent-filter>
+                <action android:name="intent.action.forgotpassword.open" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.screens.login.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.ComposeShop">

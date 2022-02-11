@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.giovannicmelo.composeshop.ui.theme.Black
 import com.github.giovannicmelo.composeshop.ui.theme.ComposeShopTheme
+import com.github.giovannicmelo.composeshop.ui.theme.Error
 
 @Composable
 fun Headline1Text(text: String, color: Color = Black) {
@@ -64,7 +65,18 @@ fun DescriptiveText(text: String, color: Color = Black) {
     Text(
         text = text,
         color = color,
-        style = MaterialTheme.typography.button
+        style = MaterialTheme.typography.button,
+        lineHeight = 20.sp
+    )
+}
+
+@Composable
+fun TextFieldErrorText(text: String) {
+    Text(
+        text = text,
+        color = Error,
+        style = MaterialTheme.typography.subtitle1,
+        modifier = Modifier.padding(start = 16.dp, top = 1.dp)
     )
 }
 

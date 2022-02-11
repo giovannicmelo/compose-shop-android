@@ -1,4 +1,4 @@
-package com.github.giovannicmelo.composeshop.ui.screens
+package com.github.giovannicmelo.composeshop.ui.screens.login
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +23,7 @@ import com.github.giovannicmelo.composeshop.R
 import com.github.giovannicmelo.composeshop.ui.components.*
 import com.github.giovannicmelo.composeshop.ui.theme.ComposeShopTheme
 import com.github.giovannicmelo.composeshop.ui.theme.Primary
+import com.github.giovannicmelo.composeshop.ui.utils.Actions
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,16 +35,24 @@ class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val emailState by viewModel.email.observeAsState()
-            val passwordState by viewModel.password.observeAsState()
-            val loginValid by viewModel.loginValid.observeAsState()
+            val email by viewModel.email.observeAsState()
+            val password by viewModel.password.observeAsState()
+            val isValidEmail by viewModel.emailValid.observeAsState()
+            val isValidPassword by viewModel.passwordValid.observeAsState()
+
+            val context = LocalContext.current
 
             ComposeLoginScreen(
-                email = emailState ?: "",
-                password = passwordState ?: "",
-                isValidLogin = loginValid ?: false,
+                email = email ?: "",
+                password = password ?: "",
+                isValidEmail = isValidEmail,
+                isValidPassword = isValidPassword,
                 onEmailChanged = { viewModel.email.postValue(it) },
-                onPasswordChanged = { viewModel.password.postValue(it) }
+                onPasswordChanged = { viewModel.password.postValue(it) },
+                forgotPasswordAction = {
+                    val intent = Actions.ForgotPassword.Navigation.createIntent(context)
+                    startActivity(intent)
+                }
             )
         }
     }
@@ -53,9 +63,12 @@ class LoginActivity : ComponentActivity() {
 fun ComposeLoginScreen(
     email: String,
     password: String,
-    isValidLogin: Boolean,
+    isValidEmail: Boolean? = null,
+    isValidPassword: Boolean? = null,
     onEmailChanged: (String) -> Unit = {},
     onPasswordChanged: (String) -> Unit = {},
+    forgotPasswordAction: () -> Unit = {},
+    loginAction: () -> Unit = {}
 ) {
     ComposeShopTheme {
         Scaffold(topBar = { TopAppBarSimple() }) {
@@ -67,9 +80,19 @@ fun ComposeLoginScreen(
                 Column {
                     Headline1Text(text = stringResource(R.string.title_activity_login))
                     Spacer(modifier = Modifier.height(73.dp))
-                    EmailTextField(email, onEmailChanged)
+                    EmailTextField(
+                        text = email,
+                        onChanged = onEmailChanged,
+                        isValid = isValidEmail,
+                        errorMessage = "Not a valid email address."
+                    )
                     Spacer(modifier = Modifier.height(6.dp))
-                    PasswordTextField(password, onPasswordChanged)
+                    PasswordTextField(
+                        text = password,
+                        onChanged = onPasswordChanged,
+                        isValid = isValidPassword,
+                        errorMessage = "Not a valid password."
+                    )
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Row(
@@ -77,9 +100,7 @@ fun ComposeLoginScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable {
-
-                            }
+                            .clickable(onClick = forgotPasswordAction)
                     ) {
                         DescriptiveText(text = stringResource(R.string.forgot_password))
                         Icon(
@@ -91,7 +112,11 @@ fun ComposeLoginScreen(
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    PrimaryButton(label = stringResource(R.string.login), isEnabled = isValidLogin)
+                    PrimaryButton(
+                        label = stringResource(R.string.login),
+                        isEnabled = isValidEmail == true && isValidPassword == true,
+                        action = loginAction
+                    )
                 }
 
                 Column(
@@ -119,5 +144,5 @@ fun ComposeLoginScreen(
 @Preview()
 @Composable
 fun LoginPreview() {
-    ComposeLoginScreen(email = "test@email.com", password = "123456", isValidLogin = true)
+    ComposeLoginScreen(email = "test@email.com", password = "123456")
 }
