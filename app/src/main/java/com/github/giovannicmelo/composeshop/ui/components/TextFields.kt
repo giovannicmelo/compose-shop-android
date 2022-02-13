@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -90,7 +91,9 @@ fun EmailTextField(
             textStyle = MaterialTheme.textStyle(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             shape = Shapes.small,
-            modifier = Modifier.textFieldModifier(),
+            modifier = Modifier
+                .textFieldModifier()
+                .testTag("emailTextField"),
             colors = TextFieldDefaults.textFieldColorsStyled(),
             value = text,
             isError = isError,
@@ -122,7 +125,9 @@ fun PasswordTextField(
             textStyle = MaterialTheme.textStyle(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             shape = Shapes.small,
-            modifier = Modifier.textFieldModifier(),
+            modifier = Modifier
+                .textFieldModifier()
+                .testTag("passwordTextField"),
             colors = TextFieldDefaults.textFieldColorsStyled(),
             visualTransformation = PasswordVisualTransformation(),
             value = text,
@@ -144,7 +149,11 @@ fun TextFieldsPreview() {
             horizontalAlignment = Alignment.Start,
             modifier = Modifier.fillMaxWidth()
         ) {
-            EmailTextField("my.user@email.com", isValid = true, errorMessage = "Not a valid e-mail.")
+            EmailTextField(
+                "my.user@email.com",
+                isValid = true,
+                errorMessage = "Not a valid e-mail."
+            )
             Spacer(modifier = Modifier.height(8.dp))
             PasswordTextField("123456")
             Spacer(modifier = Modifier.height(8.dp))

@@ -31,7 +31,7 @@ class ForgotPasswordActivity : ComponentActivity() {
 
             val activity: ComponentActivity = this
 
-            ComposeForgotPasswordScreen(
+            ForgotPasswordScreen(
                 email = email ?: "",
                 isValidEmail = emailValid ?: false,
                 onEmailChanged = { viewModel.email.postValue(it) },
@@ -42,7 +42,7 @@ class ForgotPasswordActivity : ComponentActivity() {
 }
 
 @Composable
-fun ComposeForgotPasswordScreen(
+fun ForgotPasswordScreen(
     email: String,
     isValidEmail: Boolean,
     onEmailChanged: (String) -> Unit = {},
@@ -77,6 +77,6 @@ fun ComposeForgotPasswordScreen(
 @Preview()
 @Composable
 fun LoginPreview() {
-    ComposeForgotPasswordScreen(email = "test@email.com", isValidEmail = false)
+    ForgotPasswordScreen(email = "test@email.com", isValidEmail = false)
 }
 

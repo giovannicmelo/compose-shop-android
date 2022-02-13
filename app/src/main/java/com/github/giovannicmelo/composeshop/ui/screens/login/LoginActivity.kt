@@ -42,7 +42,7 @@ class LoginActivity : ComponentActivity() {
 
             val context = LocalContext.current
 
-            ComposeLoginScreen(
+            LoginScreen(
                 email = email ?: "",
                 password = password ?: "",
                 isValidEmail = isValidEmail,
@@ -60,7 +60,7 @@ class LoginActivity : ComponentActivity() {
 
 @ExperimentalMaterialApi
 @Composable
-fun ComposeLoginScreen(
+fun LoginScreen(
     email: String,
     password: String,
     isValidEmail: Boolean? = null,
@@ -144,5 +144,5 @@ fun ComposeLoginScreen(
 @Preview()
 @Composable
 fun LoginPreview() {
-    ComposeLoginScreen(email = "test@email.com", password = "123456")
+    LoginScreen(email = "test@email.com", password = "123456")
 }

@@ -8,6 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,7 +40,8 @@ fun PrimaryButton(
                 shadowBlurRadius = 6.dp,
                 offsetX = 0.dp,
                 offsetY = 2.dp
-            ),
+            )
+            .testTag("primaryButton"),
         enabled = isEnabled,
         onClick = action,
     ) {
@@ -72,7 +74,8 @@ fun OutlineButton(
                 shadowBlurRadius = 6.dp,
                 offsetX = 0.dp,
                 offsetY = 2.dp
-            ),
+            )
+            .testTag("outlineButton"),
         enabled = isEnabled,
         onClick = action,
     ) {
@@ -98,7 +101,9 @@ fun GoogleSocialMediaButton(action: () -> Unit = {}) {
         color = White,
         shape = Shapes.large,
         elevation = 0.dp,
-        modifier = Modifier.socialMediaButtonModifier(),
+        modifier = Modifier
+            .socialMediaButtonModifier()
+            .testTag("googleSocialMediaButton"),
         onClick = { action() }
     ) {
         Image(
@@ -116,7 +121,9 @@ fun FacebookSocialMediaButton(action: () -> Unit = {}) {
         color = White,
         shape = Shapes.large,
         elevation = 0.dp,
-        modifier = Modifier.socialMediaButtonModifier(),
+        modifier = Modifier
+            .socialMediaButtonModifier()
+            .testTag("facebookSocialMediaButton"),
         onClick = { action() }
     ) {
         Image(
@@ -141,7 +148,7 @@ fun ButtonsPreview() {
             PrimaryButton(
                 label = "Primary",
                 matchParent = true,
-                isEnabled = false
+                isEnabled = true
             ) {
 
             }
