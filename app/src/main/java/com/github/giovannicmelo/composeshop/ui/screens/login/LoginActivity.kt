@@ -84,14 +84,14 @@ fun ComposeLoginScreen(
                         text = email,
                         onChanged = onEmailChanged,
                         isValid = isValidEmail,
-                        errorMessage = "Not a valid email address."
+                        errorMessage = stringResource(R.string.invalid_email)
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     PasswordTextField(
                         text = password,
                         onChanged = onPasswordChanged,
                         isValid = isValidPassword,
-                        errorMessage = "Not a valid password."
+                        errorMessage = stringResource(R.string.invalid_password)
                     )
                     Spacer(modifier = Modifier.height(12.dp))
 

@@ -12,11 +12,10 @@ class ForgotPasswordViewModel @Inject constructor() : ViewModel() {
 
     val email = MutableLiveData("")
 
-    val state = MediatorLiveData<ForgotPasswordState>().apply {
+    val emailValid = MediatorLiveData<Boolean>().apply {
         addSource(email) {
-            val emailState = ForgotPasswordState()
             if (it.isNotBlank()) {
-                value = if (validateEmail(it)) emailState.success() else emailState.error()
+                value = validateEmail(it)
             }
         }
     }

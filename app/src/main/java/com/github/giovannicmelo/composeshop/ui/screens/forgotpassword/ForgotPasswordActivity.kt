@@ -27,14 +27,13 @@ class ForgotPasswordActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val email by viewModel.email.observeAsState()
-            val state by viewModel.state.observeAsState()
+            val emailValid by viewModel.emailValid.observeAsState()
 
             val activity: ComponentActivity = this
 
             ComposeForgotPasswordScreen(
-                state = state,
                 email = email ?: "",
-                isValidEmail = state?.isValid ?: false,
+                isValidEmail = emailValid ?: false,
                 onEmailChanged = { viewModel.email.postValue(it) },
                 backButtonAction = { activity.finish() }
             )
@@ -44,7 +43,6 @@ class ForgotPasswordActivity : ComponentActivity() {
 
 @Composable
 fun ComposeForgotPasswordScreen(
-    state: ForgotPasswordState?,
     email: String,
     isValidEmail: Boolean,
     onEmailChanged: (String) -> Unit = {},
@@ -66,8 +64,8 @@ fun ComposeForgotPasswordScreen(
                 EmailTextField(
                     text = email,
                     onChanged = onEmailChanged,
-                    isValid = state?.isValid,
-                    errorMessage = state?.errorMessage.toString()
+                    isValid = isValidEmail,
+                    errorMessage = stringResource(id = R.string.invalid_email)
                 )
                 Spacer(modifier = Modifier.height(55.dp))
                 PrimaryButton(label = stringResource(R.string.send), isEnabled = isValidEmail)
@@ -79,6 +77,6 @@ fun ComposeForgotPasswordScreen(
 @Preview()
 @Composable
 fun LoginPreview() {
-    ComposeForgotPasswordScreen(email = "test@email.com", isValidEmail = false, state = ForgotPasswordState())
+    ComposeForgotPasswordScreen(email = "test@email.com", isValidEmail = false)
 }
 

@@ -9,4 +9,6 @@
     <string name="login_social_account">Or login with social account</string>
     <string name="title_activity_forgot_password">Forgot Password</string>
     <string name="forgot_password_description">Please, enter your email address. You will receive a link to create a new password via email.</string>
+    <string name="invalid_email">Not a valid email address.</string>
+    <string name="invalid_password">Not a valid password.</string>
 </resources>
