@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "406708574989",
+    "project_id": "compose-shop-android",
+    "storage_bucket": "compose-shop-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406708574989:android:ad6ba3192f34c588a66e44",
+        "android_client_info": {
+          "package_name": "com.github.giovannicmelo.composeshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406708574989-qsr81skk69ftkvo5ht7i5v1tmf1p270r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDedKsxIOWAOdhCbARVUFAM2yOSOVSlSMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406708574989-qsr81skk69ftkvo5ht7i5v1tmf1p270r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
