@@ -1,4 +1,4 @@
-package com.github.giovannicmelo.composeshop.ui.utils
+package com.github.giovannicmelo.composeshop.utils
 
 import android.content.Context
 import android.content.Intent

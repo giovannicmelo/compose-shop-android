@@ -1,3 +1,5 @@
+@file:Suppress("EXPERIMENTAL_IS_NOT_ENABLED")
+
 package com.github.giovannicmelo.composeshop.ui.components
 
 import androidx.compose.foundation.BorderStroke
@@ -14,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.giovannicmelo.composeshop.R
 import com.github.giovannicmelo.composeshop.ui.theme.*
-import com.github.giovannicmelo.composeshop.ui.utils.advancedShadow
+import com.github.giovannicmelo.composeshop.utils.advancedShadow
 
 @Composable
 fun PrimaryButton(
@@ -23,25 +25,27 @@ fun PrimaryButton(
     isEnabled: Boolean = true,
     action: () -> Unit = {}
 ) {
+    val primaryButtonModifier =
+        (if (matchParent) Modifier.fillMaxWidth() else Modifier.wrapContentWidth())
+            .height(48.dp)
+            .testTag("primaryButton")
+
     Button(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Primary,
             contentColor = White,
-            disabledBackgroundColor = Primary.copy(alpha = 0.4f),
+            disabledBackgroundColor = Primary.copy(alpha = 0.7f),
             disabledContentColor = White,
         ),
         shape = CircleShape,
-        modifier = (if (matchParent) Modifier.fillMaxWidth() else Modifier.wrapContentWidth())
-            .height(48.dp)
-            .advancedShadow(
-                color = Primary,
-                alpha = 0.3f,
-                cornersRadius = 48.dp,
-                shadowBlurRadius = 6.dp,
-                offsetX = 0.dp,
-                offsetY = 2.dp
-            )
-            .testTag("primaryButton"),
+        modifier = if (isEnabled) primaryButtonModifier.advancedShadow(
+            color = Primary,
+            alpha = 0.3f,
+            cornersRadius = 48.dp,
+            shadowBlurRadius = 6.dp,
+            offsetX = 0.dp,
+            offsetY = 2.dp
+        ) else primaryButtonModifier,
         enabled = isEnabled,
         onClick = action,
     ) {
@@ -56,6 +60,10 @@ fun OutlineButton(
     isEnabled: Boolean = true,
     action: () -> Unit = {}
 ) {
+    val outlineModifier =
+        (if (matchParent) Modifier.fillMaxWidth() else Modifier.wrapContentWidth())
+            .height(48.dp)
+            .testTag("outlineButton")
     OutlinedButton(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = White,
@@ -65,17 +73,14 @@ fun OutlineButton(
         ),
         shape = CircleShape,
         border = if (isEnabled) BorderStroke(1.5.dp, Black) else BorderStroke(1.5.dp, Gray),
-        modifier = (if (matchParent) Modifier.fillMaxWidth() else Modifier.wrapContentWidth())
-            .height(48.dp)
-            .advancedShadow(
-                color = Black,
-                alpha = 0.3f,
-                cornersRadius = 48.dp,
-                shadowBlurRadius = 6.dp,
-                offsetX = 0.dp,
-                offsetY = 2.dp
-            )
-            .testTag("outlineButton"),
+        modifier = if (isEnabled) outlineModifier.advancedShadow(
+            color = Black,
+            alpha = 0.3f,
+            cornersRadius = 48.dp,
+            shadowBlurRadius = 6.dp,
+            offsetX = 0.dp,
+            offsetY = 2.dp
+        ) else outlineModifier,
         enabled = isEnabled,
         onClick = action,
     ) {
@@ -94,7 +99,7 @@ internal fun Modifier.socialMediaButtonModifier(): Modifier =
             offsetY = 0.dp
         )
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GoogleSocialMediaButton(action: () -> Unit = {}) {
     Surface(
@@ -114,7 +119,7 @@ fun GoogleSocialMediaButton(action: () -> Unit = {}) {
     }
 }
 
-@ExperimentalMaterialApi
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FacebookSocialMediaButton(action: () -> Unit = {}) {
     Surface(
@@ -148,7 +153,7 @@ fun ButtonsPreview() {
             PrimaryButton(
                 label = "Primary",
                 matchParent = true,
-                isEnabled = true
+                isEnabled = false
             ) {
 
             }

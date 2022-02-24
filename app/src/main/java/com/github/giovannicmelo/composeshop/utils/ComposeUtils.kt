@@ -1,4 +1,4 @@
-package com.github.giovannicmelo.composeshop.ui.utils
+package com.github.giovannicmelo.composeshop.utils
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind

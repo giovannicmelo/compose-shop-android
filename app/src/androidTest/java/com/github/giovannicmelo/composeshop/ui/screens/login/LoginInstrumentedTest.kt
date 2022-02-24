@@ -1,6 +1,7 @@
 package com.github.giovannicmelo.composeshop.ui.screens.login
 
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -9,6 +10,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @RunWith(AndroidJUnit4::class)
 class LoginInstrumentedTest {

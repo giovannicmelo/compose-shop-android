@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.giovannicmelo.composeshop.R
 import com.github.giovannicmelo.composeshop.ui.theme.*
-import com.github.giovannicmelo.composeshop.ui.utils.advancedShadow
+import com.github.giovannicmelo.composeshop.utils.advancedShadow
 
 @Composable
 internal fun MaterialTheme.textStyle(): TextStyle = typography.button.copy(
