@@ -36,18 +36,20 @@ class LoginViewModel @Inject constructor(private val service: FirebaseAuthServic
         else null
     }
 
-    fun signIn() = viewModelScope.launch {
-        val (email, pass) = _loginState.value
-        _uiState.value = UiState.Loading
-        when (val result = service.signIn(email, pass)) {
-            is ResultWrapper.Success -> {
-                _uiState.value = UiState.Success(result.data.user!!.uid)
-            }
-            is ResultWrapper.GenericError -> {
-                _uiState.value = UiState.Failure(result.error?.message ?: "Unknown error")
-            }
-            is ResultWrapper.NetworkError -> {
-                _uiState.value = UiState.Failure("No internet connection")
+    fun signIn() {
+        viewModelScope.launch {
+            val (email, pass) = _loginState.value
+            _uiState.value = UiState.Loading
+            when (val result = service.signIn(email, pass)) {
+                is ResultWrapper.Success -> {
+                    _uiState.value = UiState.Success(result.data.user!!.uid)
+                }
+                is ResultWrapper.GenericError -> {
+                    _uiState.value = UiState.Failure(result.error?.message ?: "Unknown error")
+                }
+                is ResultWrapper.NetworkError -> {
+                    _uiState.value = UiState.Failure("No internet connection")
+                }
             }
         }
     }

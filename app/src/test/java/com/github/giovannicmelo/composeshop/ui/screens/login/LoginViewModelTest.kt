@@ -1,24 +1,12 @@
 package com.github.giovannicmelo.composeshop.ui.screens.login
 
-import android.os.Parcel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.github.giovannicmelo.composeshop.data.ResultWrapper
 import com.github.giovannicmelo.composeshop.data.services.FirebaseAuthService
 import com.github.giovannicmelo.composeshop.ui.screens.CoroutinesTestRule
 import com.github.giovannicmelo.composeshop.utils.UiState
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.mock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 

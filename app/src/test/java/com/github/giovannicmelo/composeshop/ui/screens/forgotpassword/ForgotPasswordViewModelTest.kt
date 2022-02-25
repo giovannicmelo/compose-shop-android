@@ -3,6 +3,7 @@ package com.github.giovannicmelo.composeshop.ui.screens.forgotpassword
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.nhaarman.mockitokotlin2.*
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 
@@ -17,11 +18,10 @@ class ForgotPasswordViewModelTest {
     @Test
     fun `Assert that e-mail is valid`() {
         val email = "user@email.com"
-        viewModel.email.postValue(email)
+        viewModel.setEmail(email)
 
-        val observerMock: Observer<Boolean> = mock()
-        viewModel.emailValid.observeForever(observerMock)
+        val result = viewModel.validateEmail() ?: false
 
-        verify(observerMock, times(1)).onChanged(true)
+        Assert.assertTrue(result)
     }
 }
