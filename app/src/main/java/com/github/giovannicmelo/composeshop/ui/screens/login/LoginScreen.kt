@@ -22,14 +22,15 @@ import com.github.giovannicmelo.composeshop.utils.UiState
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun LoginScreen(
-    state: UiState<String>?,
-    email: String,
-    password: String,
+    uiState: UiState<String>?,
+    dataState: DataState = DataState(),
     isValidEmail: Boolean? = null,
     isValidPassword: Boolean? = null,
     onEmailChanged: (String) -> Unit = {},
     onPasswordChanged: (String) -> Unit = {},
     forgotPasswordAction: () -> Unit = {},
+    successAction: () -> Unit = {},
+    failureAction: (String) -> Unit = {},
     loginAction: () -> Unit = {}
 ) {
     ComposeShopTheme {
@@ -45,14 +46,14 @@ fun LoginScreen(
                     Headline1Text(text = stringResource(R.string.title_activity_login))
                     Spacer(modifier = Modifier.height(73.dp))
                     EmailTextField(
-                        text = email,
+                        text = dataState.email,
                         onChanged = onEmailChanged,
                         isValid = isValidEmail,
                         errorMessage = stringResource(R.string.invalid_email)
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     PasswordTextField(
-                        text = password,
+                        text = dataState.password,
                         onChanged = onPasswordChanged,
                         isValid = isValidPassword,
                         errorMessage = stringResource(R.string.invalid_password)
@@ -78,7 +79,7 @@ fun LoginScreen(
 
                     PrimaryButton(
                         label = stringResource(R.string.login),
-                        isEnabled = isValidEmail == true && isValidPassword == true && state !is UiState.Loading,
+                        isEnabled = isValidEmail == true && isValidPassword == true && uiState !is UiState.Loading,
                         action = loginAction
                     )
 
@@ -102,17 +103,18 @@ fun LoginScreen(
                     Spacer(modifier = Modifier.height(40.dp))
                 }
 
-                when (state) {
+                when (uiState) {
                     is UiState.Loading -> {
                         Loader(true)
                     }
                     is UiState.Success -> {
                         Loader(false)
-                        Log.v("LoginScreen", state.data)
+                        successAction()
                     }
                     is UiState.Failure -> {
                         Loader(false)
-                        Log.v("LoginScreen", state.message)
+                        failureAction(uiState.message)
+                        Log.v("LoginScreen", uiState.message)
                     }
                     else -> {}
                 }
@@ -124,5 +126,8 @@ fun LoginScreen(
 @Preview()
 @Composable
 fun LoginPreview() {
-    LoginScreen(email = "test@email.com", password = "123456", state = UiState.Idle)
+    LoginScreen(
+        dataState = DataState(email = "test@email.com", password = "123456"),
+        uiState = UiState.Idle
+    )
 }

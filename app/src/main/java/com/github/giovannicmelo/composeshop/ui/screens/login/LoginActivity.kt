@@ -29,14 +29,14 @@ class LoginActivity : ComponentActivity() {
             val loginState by viewModel.loginState.collectAsState()
 
             LoginScreen(
-                state = uiState,
-                email = loginState.email,
-                password = loginState.password,
+                uiState = uiState,
+                dataState = loginState,
                 isValidEmail = viewModel.validateEmail(),
                 isValidPassword = viewModel.validatePassword(),
                 onEmailChanged = viewModel::setEmail,
                 onPasswordChanged = viewModel::setPassword,
                 forgotPasswordAction = { gotoForgotPassword(context) },
+                successAction = { gotoMain(context) },
                 loginAction = viewModel::signIn
             )
         }
@@ -44,6 +44,11 @@ class LoginActivity : ComponentActivity() {
 
     private fun gotoForgotPassword(context: Context) {
         val intent = Actions.ForgotPassword.Navigation.createIntent(context)
+        startActivity(intent)
+    }
+
+    private fun gotoMain(context: Context) {
+        val intent = Actions.Main.Navigation.createIntent(context)
         startActivity(intent)
     }
 }

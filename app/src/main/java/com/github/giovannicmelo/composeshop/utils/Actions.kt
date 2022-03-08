@@ -11,6 +11,13 @@ object Actions {
             override val action = "intent.action.forgotpassword.open"
         }
     }
+
+    object Main {
+
+        object Navigation : NavigationAction() {
+            override val action = "intent.action.main.open"
+        }
+    }
 }
 
 abstract class NavigationAction {

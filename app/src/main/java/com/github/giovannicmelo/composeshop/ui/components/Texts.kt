@@ -7,12 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.giovannicmelo.composeshop.ui.theme.Black
-import com.github.giovannicmelo.composeshop.ui.theme.ComposeShopTheme
-import com.github.giovannicmelo.composeshop.ui.theme.Error
+import com.github.giovannicmelo.composeshop.ui.theme.*
 
 @Composable
 fun Headline1Text(text: String, color: Color = Black) {
@@ -77,6 +77,18 @@ fun TextFieldErrorText(text: String) {
         color = Error,
         style = MaterialTheme.typography.subtitle1,
         modifier = Modifier.padding(start = 16.dp, top = 1.dp)
+    )
+}
+
+@Composable
+fun NavLabelText(text: String, isActive: Boolean = false) {
+    Text(
+        text = text,
+        color = if (isActive) Primary else Gray,
+        style = TextStyle(
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 8.sp
+        )
     )
 }
 

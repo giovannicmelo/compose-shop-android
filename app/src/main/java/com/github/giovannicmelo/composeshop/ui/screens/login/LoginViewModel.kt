@@ -53,9 +53,9 @@ class LoginViewModel @Inject constructor(private val service: FirebaseAuthServic
             }
         }
     }
-
-    data class DataState(
-        val email: String = "",
-        val password: String = ""
-    )
 }
+
+data class DataState(
+    val email: String = "",
+    val password: String = ""
+)

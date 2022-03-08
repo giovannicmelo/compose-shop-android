@@ -16,7 +16,7 @@ class ForgotPasswordViewModel @Inject constructor() : ViewModel() {
     val uiState = _uiState.asStateFlow()
 
     private val _state = MutableStateFlow(DataState())
-    val state = _state.asStateFlow()
+    val dataState = _state.asStateFlow()
     fun setEmail(text: String) = _state.update { it.copy(email = text) }
 
     fun validateEmail(): Boolean? {
@@ -24,8 +24,8 @@ class ForgotPasswordViewModel @Inject constructor() : ViewModel() {
             PatternsCompat.EMAIL_ADDRESS.matcher(_state.value.email).matches()
         else null
     }
-
-    data class DataState(
-        val email: String = ""
-    )
 }
+
+data class DataState(
+    val email: String = ""
+)

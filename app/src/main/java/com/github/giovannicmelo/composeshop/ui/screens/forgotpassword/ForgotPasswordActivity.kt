@@ -18,12 +18,12 @@ class ForgotPasswordActivity : ComponentActivity() {
         setContent {
 
             val uiState by viewModel.uiState.collectAsState()
-            val state by viewModel.state.collectAsState()
+            val state by viewModel.dataState.collectAsState()
 
             val activity: ComponentActivity = this
 
             ForgotPasswordScreen(
-                email = state.email,
+                dataState = state,
                 isValidEmail = viewModel.validateEmail(),
                 onEmailChanged = viewModel::setEmail,
                 backButtonAction = { activity.finish() }

@@ -13,7 +13,7 @@ import com.github.giovannicmelo.composeshop.ui.theme.ComposeShopTheme
 
 @Composable
 fun ForgotPasswordScreen(
-    email: String,
+    dataState: DataState = DataState(),
     isValidEmail: Boolean? = null,
     onEmailChanged: (String) -> Unit = {},
     backButtonAction: () -> Unit = {}
@@ -32,7 +32,7 @@ fun ForgotPasswordScreen(
                 DescriptiveText(text = stringResource(R.string.forgot_password_description))
                 Spacer(modifier = Modifier.height(16.dp))
                 EmailTextField(
-                    text = email,
+                    text = dataState.email,
                     onChanged = onEmailChanged,
                     isValid = isValidEmail,
                     errorMessage = stringResource(id = R.string.invalid_email)
@@ -50,5 +50,5 @@ fun ForgotPasswordScreen(
 @Preview()
 @Composable
 fun LoginPreview() {
-    ForgotPasswordScreen(email = "test@email.com", isValidEmail = false)
+    ForgotPasswordScreen(dataState = DataState("test@email.com"), isValidEmail = false)
 }
