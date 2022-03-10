@@ -1,11 +1,15 @@
 package com.github.giovannicmelo.composeshop.ui.components
 
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -18,12 +22,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.github.giovannicmelo.composeshop.ui.theme.Gray
-import com.github.giovannicmelo.composeshop.ui.theme.Primary
-import com.github.giovannicmelo.composeshop.ui.theme.White
-import com.github.giovannicmelo.composeshop.ui.theme.metropolisFontFamily
+import com.github.giovannicmelo.composeshop.ui.theme.*
 import com.github.giovannicmelo.composeshop.utils.NavigationItem
 import com.github.giovannicmelo.composeshop.utils.NavigationRoute
+
+private val items = listOf(
+    NavigationItem.Home,
+    NavigationItem.Shop,
+    NavigationItem.Bag,
+    NavigationItem.Favorites,
+    NavigationItem.Profile,
+)
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
@@ -51,25 +60,20 @@ fun NavigationGraph(navController: NavHostController) {
 
 @Composable
 fun NavigationBar(navController: NavController) {
-    val items = listOf(
-        NavigationItem.Home,
-        NavigationItem.Shop,
-        NavigationItem.Bag,
-        NavigationItem.Favorites,
-        NavigationItem.Profile,
-    )
     BottomNavigation(
+        modifier = Modifier.clip(RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp)),
         backgroundColor = White,
-        contentColor = Gray,
-        elevation = 0.dp
+        elevation = 12.dp
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { item ->
+            val isSelected = currentRoute == item.route.name.lowercase()
             BottomNavigationItem(
+                modifier = Modifier.padding(top = 32.dp),
                 icon = {
                     Icon(
-                        painter = painterResource(id = item.iconRes),
+                        painter = painterResource(id = if (isSelected) item.iconResSelected else item.iconRes),
                         contentDescription = item.route.label
                     )
                 },
@@ -86,7 +90,7 @@ fun NavigationBar(navController: NavController) {
                 selectedContentColor = Primary,
                 unselectedContentColor = Gray,
                 alwaysShowLabel = true,
-                selected = currentRoute == item.route.name.lowercase(),
+                selected = isSelected,
                 onClick = {
                     navController.navigate(item.route.name.lowercase()) {
                         navController.graph.startDestinationRoute?.let { route ->
@@ -105,5 +109,11 @@ fun NavigationBar(navController: NavController) {
 @Composable
 fun NavigationBarsPreview() {
     val navController = rememberNavController()
-    NavigationBar(navController)
+    ComposeShopTheme() {
+        Column(Modifier.fillMaxWidth()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            NavigationBar(navController)
+        }
+    }
+
 }
